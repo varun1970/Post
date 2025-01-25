@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: POST
+  datasource:
+    url: jdbc:mysql://localhost:3306/microservicepost
+    username: root
+    password: Mr.Mark@2001
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    open-in-view: false
+
+  eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka
+server:
+  port: 8080
+
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      commentBreaker:
+        registerHealthIndicator: true
+        eventConsumerBufferSize: 10
+        failureRateThreshold: 50
+        minimumNumberOfCalls: 5
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 6s
+        permittedNumberOfCallsInHalfOpenState: 3
+        slidingWindowSize: 10
+        slidingWindowType: COUNT_BASED
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true  # Enable health checks for circuit breakers
+  endpoints:
+    web:
+      exposure:
+        include: health,info  # Expose the health and info endpoints
+  endpoint:
+    health:
+      show-details: always
