@@ -22,6 +22,12 @@ public class PostController {
     private PostService postService;
     @PostMapping
     public ResponseEntity<Post> savePost(@RequestBody Post post) {
+        System.out.println("aaaaaaaaaaaaaaaaaaaa");
+        System.out.println("aaaaaaaaaaaaaaaaaaaa");
+        System.out.println("aaaaaaaaaaaaaaaaaaaa");
+        System.out.println("aaaaaaaaaaaaaaaaaaaa");
+        System.out.println("aaaaaaaaaaaaaaaaaaaa");
+        System.out.println("aaaaaaaaaaaaaaaaaaaa");
         if (post.getId() == null)
         post.setId(String.valueOf(UUID.randomUUID()));
         Post saved = postService.save(post);
